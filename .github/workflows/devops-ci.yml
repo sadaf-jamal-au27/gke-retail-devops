@@ -1,0 +1,16 @@
+name: DevOps CI
+on:
+  push:
+    branches: [main]
+    paths: ["helm/**", "db/**", "scripts/**"]
+  pull_request:
+    paths: ["helm/**", "db/**", "scripts/**"]
+jobs:
+  helm:
+    name: DevOps CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with: { version: v3.16.3 }
+      - run: chmod +x scripts/validate-helm.sh && ./scripts/validate-helm.sh dev
