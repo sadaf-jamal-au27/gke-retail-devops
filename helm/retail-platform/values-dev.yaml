@@ -14,9 +14,9 @@ global:
     gsaEmail: retail-workload-dev@ai-rag-agent-project.iam.gserviceaccount.com
 
 gateway:
-  enabled: false
-  hostname: dev-shop.example.com
-  adminHostname: dev-admin.example.com
+  enabled: true
+  hostname: dev-shop.beyondthecloud.in
+  adminHostname: dev-admin.beyondthecloud.in
 
 bff:
   replicas: 1

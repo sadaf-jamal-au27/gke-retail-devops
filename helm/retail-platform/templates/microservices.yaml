@@ -45,6 +45,31 @@ spec:
               value: info
             - name: CORS_ORIGINS
               value: "https://{{ $.Values.gateway.hostname }},https://{{ $.Values.gateway.adminHostname }}"
+            {{- if eq .name "bff-api-service" }}
+            {{- /* In-cluster ClusterIP DNS (service port 80 → container 8080) */}}
+            - name: AUTH_URL
+              value: http://auth-service
+            - name: VEHICLE_CATALOG_URL
+              value: http://vehicle-catalog-service
+            - name: VEHICLE_INVENTORY_URL
+              value: http://vehicle-inventory-service
+            - name: DEALERSHIP_URL
+              value: http://dealership-service
+            - name: AUTO_PRICING_URL
+              value: http://auto-pricing-service
+            - name: TEST_DRIVE_URL
+              value: http://test-drive-service
+            - name: AUTO_CART_URL
+              value: http://auto-cart-service
+            - name: AUTO_ORDER_URL
+              value: http://auto-order-service
+            - name: AUTO_FINANCE_URL
+              value: http://auto-finance-service
+            - name: SERVICE_APPOINTMENT_URL
+              value: http://service-appointment-service
+            - name: TRADE_IN_URL
+              value: http://trade-in-service
+            {{- end }}
             {{- /* DB: private VPC IP (preferred on Autopilot same-VPC) or 127.0.0.1 via Auth Proxy sidecar */}}
             {{- if or .enableDatabase .enableCloudSqlProxy }}
             - name: DB_HOST

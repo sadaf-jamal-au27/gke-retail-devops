@@ -19,8 +19,13 @@ metadata:
     {{- include "retail.labels" . | nindent 4 }}
 spec:
   podSelector:
-    matchLabels:
-      app: bff-api-service
+    matchExpressions:
+      - key: app
+        operator: In
+        values:
+          - bff-api-service
+          - storefront
+          - admin
   policyTypes: ["Ingress"]
   ingress:
     - from:
@@ -32,6 +37,15 @@ spec:
           port: 8080
     - from:
         - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8080
+    # GKE load balancer health checks (not pod traffic)
+    - from:
+        - ipBlock:
+            cidr: 35.191.0.0/16
+        - ipBlock:
+            cidr: 130.211.0.0/22
       ports:
         - protocol: TCP
           port: 8080

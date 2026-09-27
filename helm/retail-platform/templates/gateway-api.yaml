@@ -48,8 +48,21 @@ spec:
         - path:
             type: PathPrefix
             value: /api
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /v1
       backendRefs:
         - name: bff-api-service
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: storefront
           port: 80
 ---
 apiVersion: gateway.networking.k8s.io/v1
@@ -69,8 +82,21 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /api
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /v1
       backendRefs:
         - name: bff-api-service
+          port: 80
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: admin
           port: 80
 {{- end }}
