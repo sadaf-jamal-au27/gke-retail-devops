@@ -3,12 +3,15 @@ global:
   namespace: retail-qa
   projectId: REPLACE_GCP_QA_PROJECT
   imageRegistry: asia-south1-docker.pkg.dev/REPLACE_GCP_QA_PROJECT/retail
+  imageTag: rc-latest
+  imagePullPolicy: IfNotPresent
   cloudSql:
     instanceConnectionName: REPLACE_GCP_QA_PROJECT:asia-south1:retail-qa-pg
   serviceAccount:
     gsaEmail: retail-workload-qa@REPLACE_GCP_QA_PROJECT.iam.gserviceaccount.com
 
 gateway:
+  enabled: false
   hostname: qa-shop.example.com
   adminHostname: qa-admin.example.com
 

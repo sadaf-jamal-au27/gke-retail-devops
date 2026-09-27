@@ -3,11 +3,24 @@ global:
   namespace: retail-prod
   projectId: REPLACE_GCP_PROD_PROJECT
   imageRegistry: asia-south1-docker.pkg.dev/REPLACE_GCP_PROD_PROJECT/retail
+  imageTag: stable
+  imagePullPolicy: IfNotPresent
   cloudSql:
     instanceConnectionName: REPLACE_GCP_PROD_PROJECT:asia-south1:retail-prod-pg
   serviceAccount:
     gsaEmail: retail-workload-prod@REPLACE_GCP_PROD_PROJECT.iam.gserviceaccount.com
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: "1"
+      memory: 1Gi
 
 gateway:
+  enabled: true
   hostname: shop.yourdomain.com
   adminHostname: admin.yourdomain.com
+
+bff:
+  replicas: 3

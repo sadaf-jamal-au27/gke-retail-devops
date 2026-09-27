@@ -3,12 +3,15 @@ global:
   namespace: retail-dev
   projectId: ai-rag-agent-project
   imageRegistry: asia-south1-docker.pkg.dev/ai-rag-agent-project/retail
+  imageTag: develop-latest
+  imagePullPolicy: Always
   cloudSql:
     instanceConnectionName: ai-rag-agent-project:asia-south1:retail-dev-pg
   serviceAccount:
     gsaEmail: retail-workload-dev@ai-rag-agent-project.iam.gserviceaccount.com
 
 gateway:
+  enabled: false
   hostname: dev-shop.example.com
   adminHostname: dev-admin.example.com
 

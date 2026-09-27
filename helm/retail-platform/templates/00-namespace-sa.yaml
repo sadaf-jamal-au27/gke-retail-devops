@@ -5,6 +5,7 @@ metadata:
   labels:
     {{- include "retail.labels" . | nindent 4 }}
     pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/warn: restricted
 ---
 {{- if .Values.global.serviceAccount.create }}
 apiVersion: v1
@@ -12,6 +13,9 @@ kind: ServiceAccount
 metadata:
   name: {{ .Values.global.serviceAccount.name }}
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
   annotations:
     iam.gke.io/gcp-service-account: {{ .Values.global.serviceAccount.gsaEmail }}
+automountServiceAccountToken: true
 {{- end }}
