@@ -10,6 +10,7 @@ global:
 
   cloudSql:
     instanceConnectionName: PROJECT:REGION:retail-prod-pg
+    privateIp: ""
     proxyImage: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.1
 
   serviceAccount:

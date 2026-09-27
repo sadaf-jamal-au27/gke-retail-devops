@@ -1,63 +1,63 @@
 # 12 services already pushed to Artifact Registry (develop-latest).
-# First GKE deploy: use this file, not services.generated.yaml.
+# DB services use private VPC IP (Cloud SQL) + Secret retail-db — no Auth Proxy sidecar.
 services:
   - name: auth-service
     domain: identity
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: vehicle-catalog-service
     domain: automobile-catalog
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: vehicle-inventory-service
     domain: automobile-inventory
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: dealership-service
     domain: automobile-dealer
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: auto-pricing-service
     domain: automobile-pricing
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: test-drive-service
     domain: automobile-experience
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: auto-cart-service
     domain: automobile-commerce
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: auto-order-service
     domain: automobile-commerce
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: auto-finance-service
     domain: automobile-finance
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: service-appointment-service
     domain: automobile-aftersales
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: trade-in-service
     domain: automobile-tradein
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: true
   - name: bff-api-service
     domain: edge
     port: 8080
     replicas: 1
-    enableCloudSqlProxy: false
+    enableDatabase: false
