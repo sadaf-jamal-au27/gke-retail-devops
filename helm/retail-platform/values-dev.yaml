@@ -7,6 +7,9 @@ global:
   imagePullPolicy: Always
   cloudSql:
     instanceConnectionName: ai-rag-agent-project:asia-south1:retail-dev-pg
+    # Same VPC as GKE Autopilot — connect without Auth Proxy sidecar.
+    privateIp: "10.40.0.3"
+    proxyImage: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.1
   serviceAccount:
     gsaEmail: retail-workload-dev@ai-rag-agent-project.iam.gserviceaccount.com
 

@@ -45,9 +45,10 @@ spec:
               value: info
             - name: CORS_ORIGINS
               value: "https://{{ $.Values.gateway.hostname }},https://{{ $.Values.gateway.adminHostname }}"
-            {{- if .enableCloudSqlProxy }}
+            {{- /* DB: private VPC IP (preferred on Autopilot same-VPC) or 127.0.0.1 via Auth Proxy sidecar */}}
+            {{- if or .enableDatabase .enableCloudSqlProxy }}
             - name: DB_HOST
-              value: "127.0.0.1"
+              value: {{ if .enableCloudSqlProxy }}"127.0.0.1"{{ else }}{{ $.Values.global.cloudSql.privateIp | quote }}{{ end }}
             - name: DB_PORT
               value: "5432"
             - name: DB_USER

@@ -35,7 +35,7 @@ helm upgrade --install "retail-${ENV}" "${CHART}" \
   -f "${CHART}/values.yaml" \
   -f "${VALUES_ENV}" \
   -f "${SERVICES}" \
-  "${EXTRA[@]}" \
+  ${EXTRA[@]+"${EXTRA[@]}"} \
   ${DRY_RUN} \
   --timeout 15m
 
