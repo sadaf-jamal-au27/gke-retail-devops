@@ -1,17 +1,23 @@
-# 10 automobile services only (no auth / BFF). Prefer services.live-12.yaml.
+# 12 services already pushed to Artifact Registry (develop-latest).
+# First GKE deploy: use this file, not services.generated.yaml.
 services:
+  - name: auth-service
+    domain: identity
+    port: 8080
+    replicas: 1
+    enableCloudSqlProxy: false
   - name: vehicle-catalog-service
     domain: automobile-catalog
     port: 8080
     replicas: 1
     enableCloudSqlProxy: false
-  - name: dealership-service
-    domain: automobile-dealer
+  - name: vehicle-inventory-service
+    domain: automobile-inventory
     port: 8080
     replicas: 1
     enableCloudSqlProxy: false
-  - name: vehicle-inventory-service
-    domain: automobile-inventory
+  - name: dealership-service
+    domain: automobile-dealer
     port: 8080
     replicas: 1
     enableCloudSqlProxy: false
@@ -47,6 +53,11 @@ services:
     enableCloudSqlProxy: false
   - name: trade-in-service
     domain: automobile-tradein
+    port: 8080
+    replicas: 1
+    enableCloudSqlProxy: false
+  - name: bff-api-service
+    domain: edge
     port: 8080
     replicas: 1
     enableCloudSqlProxy: false

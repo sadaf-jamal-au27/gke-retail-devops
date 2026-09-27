@@ -1,3 +1,4 @@
+# Defaults — override per env with values-<env>.yaml
 global:
   projectId: YOUR_GCP_PROJECT_ID
   region: asia-south1
@@ -5,27 +6,42 @@ global:
   namespace: retail
   imageRegistry: asia-south1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/retail
   imageTag: "1.0.0"
+  imagePullPolicy: IfNotPresent
+
   cloudSql:
     instanceConnectionName: PROJECT:REGION:retail-prod-pg
+    proxyImage: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.1
+
   serviceAccount:
     create: true
     name: retail-app
     gsaEmail: retail-workload@YOUR_GCP_PROJECT_ID.iam.gserviceaccount.com
+
   podSecurity:
     runAsNonRoot: true
     runAsUser: 65532
     readOnlyRootFilesystem: true
+
+  # Autopilot-legal shape (CPU:memory ratio)
+  resources:
+    requests:
+      cpu: 250m
+      memory: 512Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
   networkPolicy:
     enabled: true
 
 gateway:
-  enabled: true
+  enabled: false
   hostname: shop.example.com
   adminHostname: admin.example.com
 
 bff:
   exposeViaGateway: true
-  replicas: 3
+  replicas: 1
 
-# Per-service overrides; full list in services.generated.yaml
+# Overridden by services.live-12.yaml (or services.generated.yaml)
 services: []

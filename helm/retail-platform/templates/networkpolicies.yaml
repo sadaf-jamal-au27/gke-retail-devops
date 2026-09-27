@@ -4,6 +4,8 @@ kind: NetworkPolicy
 metadata:
   name: default-deny-ingress
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
 spec:
   podSelector: {}
   policyTypes: ["Ingress"]
@@ -13,6 +15,8 @@ kind: NetworkPolicy
 metadata:
   name: allow-gateway-to-bff
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:
@@ -26,12 +30,19 @@ spec:
       ports:
         - protocol: TCP
           port: 8080
+    - from:
+        - podSelector: {}
+      ports:
+        - protocol: TCP
+          port: 8080
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-bff-to-domain-services
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchExpressions:
@@ -50,11 +61,7 @@ spec:
         - podSelector:
             matchExpressions:
               - key: domain
-                operator: In
-                values:
-                  - commerce
-                  - catalog
-                  - identity
+                operator: Exists
       ports:
         - protocol: TCP
           port: 8080

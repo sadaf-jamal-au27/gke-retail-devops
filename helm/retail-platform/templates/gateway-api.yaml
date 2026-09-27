@@ -4,6 +4,8 @@ kind: Gateway
 metadata:
   name: retail-external-gateway
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
   annotations:
     networking.gke.io/certmap: retail-cert-map
 spec:
@@ -33,6 +35,8 @@ kind: HTTPRoute
 metadata:
   name: retail-bff-route
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
 spec:
   parentRefs:
     - name: retail-external-gateway
@@ -53,6 +57,8 @@ kind: HTTPRoute
 metadata:
   name: retail-admin-route
   namespace: {{ .Values.global.namespace }}
+  labels:
+    {{- include "retail.labels" . | nindent 4 }}
 spec:
   parentRefs:
     - name: retail-external-gateway

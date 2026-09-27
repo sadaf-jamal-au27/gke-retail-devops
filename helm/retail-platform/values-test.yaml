@@ -3,14 +3,17 @@ global:
   namespace: retail-test
   projectId: REPLACE_GCP_TEST_PROJECT
   imageRegistry: asia-south1-docker.pkg.dev/REPLACE_GCP_TEST_PROJECT/retail
+  imageTag: develop-latest
+  imagePullPolicy: Always
   cloudSql:
     instanceConnectionName: REPLACE_GCP_TEST_PROJECT:asia-south1:retail-test-pg
   serviceAccount:
     gsaEmail: retail-workload-test@REPLACE_GCP_TEST_PROJECT.iam.gserviceaccount.com
 
 gateway:
+  enabled: false
   hostname: test-shop.example.com
   adminHostname: test-admin.example.com
 
 bff:
-  replicas: 2
+  replicas: 1

@@ -1,0 +1,20 @@
+Retail platform ({{ .Values.global.env }}) installed as {{ .Release.Name }}.
+
+Namespace:  {{ .Values.global.namespace }}
+Registry:   {{ .Values.global.imageRegistry }}
+Image tag:  {{ .Values.global.imageTag }}
+Services:   {{ len .Values.services }}
+Gateway:    {{ .Values.gateway.enabled }}
+
+Check pods:
+  kubectl -n {{ .Values.global.namespace }} get pods
+
+On Autopilot, nodes appear only after pods are scheduled (2–5 min).
+
+{{- if not .Values.gateway.enabled }}
+Gateway is off. Test a service with:
+  kubectl -n {{ .Values.global.namespace }} port-forward svc/bff-api-service 8090:80
+{{- else }}
+Shop:  https://{{ .Values.gateway.hostname }}
+Admin: https://{{ .Values.gateway.adminHostname }}
+{{- end }}
